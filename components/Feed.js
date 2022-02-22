@@ -1,17 +1,16 @@
 import { SparklesIcon } from "@heroicons/react/outline";
+import { useEffect, useState } from "react";
 import Input from "./Input";
-import {useState, useEffect} from "react";
-import {db} from "../firebase"
+import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
+import { db } from "../firebase";
 import Post from "./Post";
-import {useSession} from "next-auth/react"
-import {onSnapShot, collection, query, orderBy} from "@firebase/firestore";
+import { useSession } from "next-auth/react";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
   useEffect(
     () =>
-      onSnapShot(
-        query(collection(db, "posts"), orderBy("timestamp", "desc")),
+      onSnapshot(query(collection(db, "posts"), orderBy("timestamp", "desc")),
         (snapshot) => {
           setPosts(snapshot.docs);
         }
