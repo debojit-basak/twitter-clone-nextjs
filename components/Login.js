@@ -2,6 +2,7 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 
 function Login({providers}) {
+  console.log(providers);
   return (
     <div className="flex flex-col items-center space-y-20 pt-48">
       <Image
@@ -9,11 +10,13 @@ function Login({providers}) {
         width={150}
         height={150}
         objectFit="contain"
+        alt="twitter logo"
       />
-      <div>
+      {/* <div> */}
         {Object.values(providers ?? {}).map(provider =>(
-          <div key={provider.name}>
-            <button
+          
+          
+          <button key={provider.name}
               className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
               onClick={() => signIn(provider.id, { callbackUrl: "/" })}
             >
@@ -22,9 +25,11 @@ function Login({providers}) {
                 Sign in with {provider.name}
               </span>
             </button>
-            </div>
+          
+          
+          
         ))}
-      </div>
+      {/* </div> */}
     </div>
   )
 }
